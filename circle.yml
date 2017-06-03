@@ -1,0 +1,8 @@
+dependencies:
+    override:
+        - sudo pip install awscli
+deployment:
+  prod:
+    branch: master
+    commands:
+      - aws s3 sync /home/ubuntu/circle-ci-aws-s3-deploy s3://wepapp.cityparking.guide --delete
