@@ -5,4 +5,4 @@ deployment:
   prod:
     branch: master
     commands:
-      - aws s3 sync /home/ubuntu/circle-ci-aws-s3-deploy s3://web.cityparking.guide --delete
+      - aws s3 sync /home/ubuntu/circle-ci-aws-s3-deploy s3://web.cityparking.guide --region ca-central-1 --delete
