@@ -4,8 +4,14 @@ dependencies:
 deployment:
   prod:
     branch: master
-    commands:
-      - aws s3 sync /home/ubuntu/circle-ci-aws-s3-deploy s3://web.cityparking.guide --region ca-central-1
     codedeploy:
-      webapp:
+      wepapp:
+        application_root: /
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: web.cityparking.guide
+            key_pattern: apps/wepapp-{SHORT_COMMIT}-{BUILD_NUM}
+        region: us-east-1
         deployment_group: wepapp
+        deployment_config: CodeDeployDefault.AllAtOnce
