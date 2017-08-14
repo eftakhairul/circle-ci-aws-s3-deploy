@@ -1,8 +1,12 @@
 dependencies:
     override:
         - sudo pip install awscli
+test:
+  override:
+    - echo "test"
+    
 deployment:
   prod:
     branch: master
     commands:
-      - aws s3 sync /home/ubuntu/circle-ci-aws-s3-deploy s3://web.cityparking.guide --region ca-central-1
+      - aws s3 sync /home/ubuntu/circle-ci-aws-s3-deploy s3://circlecis3deploy --region us-east-1
