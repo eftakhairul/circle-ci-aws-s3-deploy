@@ -8,17 +8,23 @@ link: https://eftakhairul.com/automate-static-website-deployment-on-aws-s3-using
 ### Circle CI config file: circle.yml
 
 ```sh
-dependencies:
-    override:
-        - sudo pip install awscli
-test:
-  override:
-    - echo "test"
-    
-deployment:
-  prod:
-    branch: master
-    commands:
-      - aws s3 sync /home/ubuntu/circle-ci-aws-s3-deploy s3://circlecis3deploy --region us-east-1
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.3
+
+    working_directory: ~/circle-ci-aws-s3-deploy
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install AWS CLI
+          command: pip install awscli --upgrade --user
+
+      - run:
+          name: s3 deploy
+          command: ~/.local/bin/aws s3 sync --delete --acl public-read ~/circle-ci-aws-s3-deploy s3://circlecis3deploy --exclude ".git/*" --region us-east-1
 
 ```
